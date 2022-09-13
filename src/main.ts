@@ -1,6 +1,13 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
-import store from './store';
+import vuex, { storeKey } from './vuex';
 
-createApp(App).use(store).use(router).mount('#app');
+createApp({
+  extends: App,
+  beforeCreate() {
+    this.$store.commit('initializeStore');
+  },
+}).use(vuex, storeKey)
+  .use(router)
+  .mount('#app');
